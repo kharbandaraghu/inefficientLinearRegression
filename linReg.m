@@ -41,7 +41,7 @@ function [mySlope yIntercept] = linReg(X, Y, n)
  
     % if size of X and Y is not same, error is raised
     if size(X) ~= size(Y)
-        throw(MException('MATLAB:invalid_argument', 'size of x and y values mus be same'));
+        throw(MException('MATLAB:invalid_argument', 'size of x and y values must be same'));
     end
     % X and Y must be row vectors
     if ~ isrow(X) && ~ isrow(Y)
@@ -64,6 +64,7 @@ function [mySlope yIntercept] = linReg(X, Y, n)
     sum = 0;
     mySum = inf;
     myVals = [0 0 0 0];
+    mean = sum(Y)/length(Y);
  
     % do for segment 1
     for i = 1:n
@@ -82,7 +83,7 @@ function [mySlope yIntercept] = linReg(X, Y, n)
          
             for k = 1:len
                 myY = m * (X(k) - ptx2) + pty2;
-                dist = (Y(k) - myY) ^ 2;
+                dist = ((Y(k) - myY) ^ 2)+(mean - myY) ^ 2;
                 sum = sum + dist;
             end
          
@@ -109,7 +110,7 @@ function [mySlope yIntercept] = linReg(X, Y, n)
          
             for k = 1:len
                 myY = m * (X(k) - ptx2) + pty2;
-                dist = (Y(k) - myY) ^ 2;
+                dist = ((Y(k) - myY) ^ 2)+(mean - myY) ^ 2;
                 sum = sum + dist;
             end
          
@@ -140,7 +141,7 @@ function [mySlope yIntercept] = linReg(X, Y, n)
          
             for k = 1:len
                 myY = m * (X(k) - ptx2) + pty2;
-                dist = (Y(k) - myY) ^ 2;
+                dist = ((Y(k) - myY) ^ 2)+(mean - myY) ^ 2;
                 sum = sum + dist;
             end
          
@@ -167,7 +168,7 @@ function [mySlope yIntercept] = linReg(X, Y, n)
          
             for k = 1:len
                 myY = m * (X(k) - ptx2) + pty2;
-                dist = (Y(k) - myY) ^ 2;
+                dist = ((Y(k) - myY) ^ 2)+(mean - myY) ^ 2;
                 sum = sum + dist;
             end
          
@@ -191,6 +192,8 @@ function [mySlope yIntercept] = linReg(X, Y, n)
     
     % calculating and displaying the equation of line
     yIntercept = yy(4)-mySlope*xx(4);
+    
+    
     
  
 end
